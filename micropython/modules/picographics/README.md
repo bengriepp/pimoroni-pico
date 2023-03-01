@@ -63,12 +63,13 @@ Bear in mind that MicroPython has only 192K of RAM available- a 320x240 pixel di
 * 240x240 Square SPI LCD Breakout - `DISPLAY_LCD_240X240`
 * 160x80 SPI LCD Breakout - `DISPLAY_LCD_160X80`
 * 128x128 I2C OLED - `DISPLAY_I2C_OLED_128X128`
-* Pico Inky Pack - 296x128 mono E ink - `DISPLAY_INKY_PACK`
+* Pico Inky Pack / Badger 2040 / Badger 2040 W - 296x128 mono E ink - `DISPLAY_INKY_PACK`
 * Inky Frame 5.7" - 600x448 7-colour E ink - `DISPLAY_INKY_FRAME`
 * Inky Frame 4.0" - 640x400 7-colour E ink - `DISPLAY_INKY_FRAME_4`
 * Pico GFX Pack - 128x64 mono LCD Matrix - `DISPLAY_GFX_PACK`
 * Galactic Unicorn - 53x11 LED Matrix - `DISPLAY_GALACTIC_UNICORN`
 * Interstate75 and 75W - HUB75 Matrix driver - `DISPLAY_INTERSTATE75_SIZEOFMATRIX` please read below!
+* Cosmic Unicorn - 32x32 LED Matrix - `DISPLAY_COSMIC_UNICORN`
 
 #### Interstate75 and Interstate75W Display modes
 
@@ -168,6 +169,12 @@ my_pen = display.create_pen(r, g, b)
 In RGB565 and RGB332 modes this packs the given RGB into an integer representing a colour in these formats and returns the result.
 
 In P4 and P8 modes this will consume one palette entry, or return an error if your palette is full. Palette colours are stored as RGB and converted when they are displayed on screen.
+
+You can also now specify an HSV pen, which allows a pen to be created from HSV (Hue, Saturation, Value) values between 0.0 and 1.0, avoiding the need to calculate the RGB result in Python.
+
+```python
+display.create_pen_hsv(h, s, v)
+```
 
 To tell PicoGraphics which pen to use:
 
