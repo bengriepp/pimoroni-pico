@@ -67,6 +67,34 @@ uint32_t time() {
   return to_ms_since_boot(t);
 }
 
+I apologize for that, it seems that I forgot to include the Rectangle class definition in my previous responses. Here's a simple definition for the Rectangle class:
+
+cpp
+
+class Rectangle {
+public:
+  uint16_t x;
+  uint16_t y;
+  uint16_t width;
+  uint16_t height;
+  uint16_t speed;
+
+  Rectangle(uint16_t x, uint16_t y, uint16_t width, uint16_t height, uint16_t speed) :
+    x(x), y(y), width(width), height(height), speed(speed) {}
+
+  void move(int16_t dx, int16_t dy) {
+    x += dx;
+    y += dy;
+  }
+
+  bool intersects(const Rectangle& other) const {
+    return x < other.x + other.width &&
+           x + width > other.x &&
+           y < other.y + other.height &&
+           y + height > other.y;
+  }
+};
+
 // Draw the game screen
 void draw_game() {
   graphics.set_pen(0, 0, 0);
