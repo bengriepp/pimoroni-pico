@@ -32,11 +32,11 @@ ST7789 st7789(
 
 PicoGraphics_PenRGB332 graphics(st7789.width, st7789.height, nullptr);
 
-Button button_a(Tufty2040::A);
-Button button_b(Tufty2040::B);
-Button button_c(Tufty2040::C);
-Button button_up(Tufty2040::UP);
-Button button_down(Tufty2040::DOWN);
+Button button_a(Tufty2040::A,Polarity::ACTIVE_HIGH);
+Button button_b(Tufty2040::B,Polarity::ACTIVE_HIGH);
+Button button_c(Tufty2040::C,Polarity::ACTIVE_HIGH);
+Button button_up(Tufty2040::UP,Polarity::ACTIVE_HIGH);
+Button button_down(Tufty2040::DOWN,Polarity::ACTIVE_HIGH);
 
 uint32_t time() {
   absolute_time_t t = get_absolute_time();
@@ -74,9 +74,17 @@ int main() {
   uint8_t i = 0;
 
   while(true) {
-    
+
     graphics.set_pen(BG);
     graphics.clear();
+
+    if(button_a.raw() || button_b.raw() || button_c.raw() || button_up.raw() || button_down.raw()) {
+      graphics.set_pen(WHITE);
+      graphics.text("Hello World", text_location, 320);
+      i+=10;
+    }
+    
+    
 
     for(auto &shape : shapes) {
       shape.x += shape.dx;
@@ -105,12 +113,13 @@ int main() {
 
 
     graphics.set_pen(WHITE);
-    graphics.text("Hello World", text_location, 320);
+    
+
 
     // update screen
     st7789.update(&graphics);
 
-    i+=10;
+    
     tufty.led(i);
   }
 
